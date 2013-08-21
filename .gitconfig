@@ -1,0 +1,15 @@
+[user]
+  name = Maarten van Schaik
+[diff]
+[color]
+  ui = true
+
+[alias]
+  l = log --pretty=format:'%C(yellow)%h%Cred%d%Creset %C(cyan)%an%Creset: %s %Cgreen(%cr)' --decorate --graph --all
+  st = status -sb
+  di = diff
+[merge]
+  tool = vimdiff
+
+[push]
+  default = simple
