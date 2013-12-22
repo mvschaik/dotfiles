@@ -1,0 +1,14 @@
+[user]
+  name = Maarten van Schaik
+[diff]
+[color]
+  ui = true
+
+[alias]
+  l = log --pretty=format:'%C(yellow)%h%Cred%d%Creset %C(cyan)%an%Creset: %s %Cgreen(%cr)' --decorate --graph --all
+  st = status -sb
+  di = diff
+  dm = !git branch --merged | grep -v '^\\*' | xargs -n 1 git branch -d
+[merge]
+  tool = vimdiff
+
