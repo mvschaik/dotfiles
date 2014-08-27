@@ -20,3 +20,4 @@ setprompt() {
 }
 setprompt
 
+export EDITOR=vim
