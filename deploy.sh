@@ -21,3 +21,8 @@ if [ ! -e ~/.screenrc ]; then
     ln -s $CURDIR/.screenrc ~/.screenrc
     echo "Deployed .screenrc"
 fi
+
+if ! grep -q dotfiles/.bashrc ~/.bashrc >/dev/null 2>&1; then
+    echo "if [ -f ~/dotfiles/.bashrc ]; then . ~/dotfiles/.bashrc; fi" >> ~/.bashrc
+    echo "Infected .bashrc"
+fi
