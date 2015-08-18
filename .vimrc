@@ -59,6 +59,14 @@ au BufRead,BufNewFile *.txt call s:setupWrapping()
 " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
 au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
 
+" Java compiler setup
+au FileType java set makeprg=javac\ %
+au FileType java command! Runprg :!java %:r
+
+" C++ compiler setup
+au FileType cpp set makeprg=c++\ -g\ -o\ %:r\ %
+au FileType cpp command! Runprg :!%:r
+
 " XML folding
 let g:xml_syntax_folding=1
 au FileType xml setlocal foldmethod=syntax
@@ -68,6 +76,8 @@ set backspace=indent,eol,start
 
 " load the plugin and indent settings for the detected filetype
 filetype plugin indent on
+
+let mapleader = " "
 
 " Opens an edit command with the path of the currently edited file filled in
 " Normal mode: <Leader>e
@@ -103,5 +113,7 @@ if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
 
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
+nnoremap <leader>v :vsplit $MYVIMRC<cr>
+nnoremap <leader>rv :source $MYVIMRC<cr>
+nnoremap <leader>m :make<cr>
+nnoremap <leader>r :Runprg<cr>
