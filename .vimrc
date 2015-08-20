@@ -124,3 +124,5 @@ nnoremap <leader>v :vsplit $MYVIMRC<cr>
 nnoremap <leader>rv :source $MYVIMRC<cr>
 nnoremap <leader>m :make<cr>
 nnoremap <leader>r :Runprg<cr>
+" Clear search buf when hitting return
+nnoremap <CR> :nohlsearch<cr>
