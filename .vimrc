@@ -113,6 +113,13 @@ if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
 
+if has('clipboard')
+    nmap <Leader>p :set paste<CR>"+p<CR>:set nopaste<CR>
+else
+    nmap <Leader>p :set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
+end
+
+
 nnoremap <leader>v :vsplit $MYVIMRC<cr>
 nnoremap <leader>rv :source $MYVIMRC<cr>
 nnoremap <leader>m :make<cr>
