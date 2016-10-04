@@ -26,3 +26,7 @@ if ! grep -q dotfiles/.bashrc ~/.bashrc >/dev/null 2>&1; then
     echo "if [ -f ~/dotfiles/.bashrc ]; then . ~/dotfiles/.bashrc; fi" >> ~/.bashrc
     echo "Infected .bashrc"
 fi
+if ! grep -q .bashrc.local ~/.bashrc >/dev/null 2>&1; then
+    echo "if [ -f ~/.bashrc.local ]; then . ~/.bashrc.local; fi" >> ~/.bashrc
+    echo "Including local bashrc"
+fi
