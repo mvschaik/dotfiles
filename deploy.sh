@@ -15,9 +15,9 @@ if [ ! -e ~/.vimrc ]; then
     echo "Deployed .vimrc"
 fi
 
-if [ ! -e ~/.screenrc ]; then
-    ln -s $CURDIR/.screenrc ~/.screenrc
-    echo "Deployed .screenrc"
+if [ ! -e ~/.tmux.conf ]; then
+    ln -s $CURDIR/tmux.conf ~/.tmux.conf
+    echo "Deployed .tmux.conf"
 fi
 
 ZSH_PATH=$(command -v zsh)
