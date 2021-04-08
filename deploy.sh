@@ -3,11 +3,7 @@
 CURDIR=$( cd "$(dirname "$0")" ; pwd -P )
 
 if [ ! -e ~/.gitconfig ]; then
-    if git version | grep "1.7" > /dev/null; then
-        ln -s $CURDIR/.gitconfig.1.7 ~/.gitconfig
-    else
-        ln -s $CURDIR/.gitconfig.1.8 ~/.gitconfig
-    fi
+    ln -s $CURDIR/gitconfig ~/.gitconfig
     echo "Deployed .gitconfig"
 fi
 
