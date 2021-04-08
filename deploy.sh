@@ -28,6 +28,16 @@ if [ $ZSH_PATH ]; then
         git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
     fi
 
+    ZSH_PLUGINDIR=~/.oh-my-zsh/custom/plugins
+    ZSH_PLUGINS="zsh-autosuggestions zsh-syntax-highlighting"
+
+    for plugin in $ZSH_PLUGINS; do
+        if [ ! -e $ZSH_PLUGINDIR/$plugin ]; then
+            echo "Installing $plugin"
+            git clone https://github.com/zsh-users/$plugin.git $ZSH_PLUGINDIR/$plugin
+        fi
+    done
+
     if [ ! -e ~/.zshrc ]; then
         ln -s $CURDIR/zshrc ~/.zshrc
         echo "Deployed .zshrc"
