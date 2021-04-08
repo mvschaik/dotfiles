@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -euf
+
 CURDIR=$( cd "$(dirname "$0")" ; pwd -P )
 
 if [ ! -e ~/.gitconfig ]; then
@@ -16,6 +18,25 @@ fi
 if [ ! -e ~/.screenrc ]; then
     ln -s $CURDIR/.screenrc ~/.screenrc
     echo "Deployed .screenrc"
+fi
+
+ZSH_PATH=$(command -v zsh)
+if [ ZSH_PATH ]; then
+    echo "$ZSH_PATH found, configuring"
+    if [ ! -e ~/.oh-my-zsh ]; then
+        echo "Installing oh-my-zsh"
+        git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
+    fi
+
+    if [ ! -e ~/.zshrc ]; then
+        ln -s $CURDIR/zshrc ~/.zshrc
+        echo "Deployed .zshrc"
+    fi
+
+    if [ ! $SHELL -eq $ZSH_PATH ]; then
+        echo "Configuring zsh as current shell"
+        chsh -s $ZSH_PATH
+    fi
 fi
 
 if ! grep -q dotfiles/.bashrc ~/.bashrc >/dev/null 2>&1; then
