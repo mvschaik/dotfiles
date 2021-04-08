@@ -21,7 +21,7 @@ if [ ! -e ~/.screenrc ]; then
 fi
 
 ZSH_PATH=$(command -v zsh)
-if [ ZSH_PATH ]; then
+if [ $ZSH_PATH ]; then
     echo "$ZSH_PATH found, configuring"
     if [ ! -e ~/.oh-my-zsh ]; then
         echo "Installing oh-my-zsh"
@@ -33,17 +33,19 @@ if [ ZSH_PATH ]; then
         echo "Deployed .zshrc"
     fi
 
-    if [ ! $SHELL -eq $ZSH_PATH ]; then
+    if [ $SHELL != $ZSH_PATH ]; then
         echo "Configuring zsh as current shell"
         chsh -s $ZSH_PATH
     fi
 fi
 
-if ! grep -q dotfiles/.bashrc ~/.bashrc >/dev/null 2>&1; then
-    echo "if [ -f ~/dotfiles/.bashrc ]; then . ~/dotfiles/.bashrc; fi" >> ~/.bashrc
-    echo "Infected .bashrc"
-fi
-if ! grep -q .bashrc.local ~/.bashrc >/dev/null 2>&1; then
-    echo "if [ -f ~/.bashrc.local ]; then . ~/.bashrc.local; fi" >> ~/.bashrc
-    echo "Including local bashrc"
+if [ ! $ZSH_PATH ]; then
+    if ! grep -q dotfiles/.bashrc ~/.bashrc >/dev/null 2>&1; then
+        echo "if [ -f ~/dotfiles/.bashrc ]; then . ~/dotfiles/.bashrc; fi" >> ~/.bashrc
+        echo "Infected .bashrc"
+    fi
+    if ! grep -q .bashrc.local ~/.bashrc >/dev/null 2>&1; then
+        echo "if [ -f ~/.bashrc.local ]; then . ~/.bashrc.local; fi" >> ~/.bashrc
+        echo "Including local bashrc"
+    fi
 fi
