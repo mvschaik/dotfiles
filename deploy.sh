@@ -38,10 +38,15 @@ if [ $ZSH_PATH ]; then
         fi
     done
 
+    if [ ! -e ~/.oh-my-zsh/custom/themes/maarten.zsh-theme ]; then
+        ln -s $CURDIR/maarten.zsh-theme ~/.oh-my-zsh/custom/themes/maarten.zsh-theme
+    fi
+
     if [ ! -e ~/.zshrc ]; then
         ln -s $CURDIR/zshrc ~/.zshrc
         echo "Deployed .zshrc"
     fi
+
 
     if [ $SHELL != $ZSH_PATH ]; then
         echo "Configuring zsh as current shell"
