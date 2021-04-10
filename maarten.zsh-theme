@@ -1,7 +1,7 @@
 
 PROMPT="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )"
-if [[ "$USERNAME" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    PROMPT+="%n@%m:"
+if [[ ! -n "$TMUX" && ( "$USERNAME" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ) ]]; then
+    PROMPT+="%{$fg[magenta]%}%n@%m%{$reset_color%}:"
 fi
 PROMPT+='%{$fg[cyan]%}%(4~|…|)%3~%{$reset_color%} '
 RPROMPT='$(git_prompt_info)'
