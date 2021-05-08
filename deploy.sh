@@ -67,6 +67,10 @@ EOF
         echo "Deployed .zshrc"
     fi
 
+    if ! grep -q -s DEFAULT_USER ~/.zshenv; then
+        echo "DEFAULT_USER=$USER" >> ~/.zshenv
+    fi
+
     if [ $SHELL != $ZSH_PATH ]; then
         echo "Configuring zsh as current shell"
         chsh -s $ZSH_PATH
