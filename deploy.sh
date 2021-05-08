@@ -4,10 +4,10 @@ set -euf
 
 CURDIR=$( cd "$(dirname "$0")" ; pwd -P )
 
-if ! grep -q "path = dotfiles/gitconfig" ~/.gitconfig; then
+if ! grep -q -s "path = $CURDIR/gitconfig" ~/.gitconfig; then
     cat >> ~/.gitconfig <<EOT
 [include]
-    path = dotfiles/gitconfig
+    path = $CURDIR/gitconfig
 EOT
     echo "Infected .gitconfig"
 fi
@@ -18,9 +18,14 @@ if [ ! -e ~/.vimrc ]; then
     echo "Deployed .vimrc"
 fi
 
-if [ ! -e ~/.tmux.conf ]; then
-    ln -s $CURDIR/tmux.conf ~/.tmux.conf
-    echo "Deployed .tmux.conf"
+if ! grep -q -s "source $CURDIR/tmux.conf" ~/.tmux.conf; then
+    if [ ! -e ~/.tmux.conf ]; then
+        touch ~/.tmux.conf
+    fi
+    echo "source $CURDIR/tmux.conf" > ~/.tmux.conf.tmp
+    cat ~/.tmux.conf >> ~/.tmux.conf.tmp
+    mv ~/.tmux.conf.tmp ~/.tmux.conf
+    echo "Infected .tmux.conf"
 fi
 
 ZSH_PATH=$(command -v zsh)
