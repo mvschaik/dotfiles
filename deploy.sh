@@ -12,21 +12,26 @@ EOT
     echo "Infected .gitconfig"
 fi
 
-if [ ! -e ~/.vimrc ]; then
-    ln -s $CURDIR/.vimrc ~/.vimrc
-    mkdir -p ~/.vim/backup
-    echo "Deployed .vimrc"
-fi
+include_in_file() {
+    local filename="$1"
+    local string="$2"
 
-if ! grep -q -s "source $CURDIR/tmux.conf" ~/.tmux.conf; then
-    if [ ! -e ~/.tmux.conf ]; then
-        touch ~/.tmux.conf
+    if ! grep -q -s "$string" "$filename"; then
+        mkdir -p ~/.vim/backup
+        if [ ! -e "$filename" ]; then
+            touch "$filename"
+        fi
+        echo "$string" > "$filename.tmp"
+        cat "$filename" >> "$filename.tmp"
+        mv "$filename.tmp" "$filename"
+        echo "Infected $filename"
     fi
-    echo "source $CURDIR/tmux.conf" > ~/.tmux.conf.tmp
-    cat ~/.tmux.conf >> ~/.tmux.conf.tmp
-    mv ~/.tmux.conf.tmp ~/.tmux.conf
-    echo "Infected .tmux.conf"
-fi
+}
+
+mkdir -p ~/.vim/backup
+include_in_file ~/.vimrc "source $CURDIR/vimrc"
+
+include_in_file ~/.tmux.conf "source $CURDIR/tmux.conf"
 
 ZSH_PATH=$(command -v zsh)
 if [ $ZSH_PATH ]; then
