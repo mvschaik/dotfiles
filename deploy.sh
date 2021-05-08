@@ -56,10 +56,16 @@ if [ $ZSH_PATH ]; then
     fi
 
     if [ ! -e ~/.zshrc ]; then
-        ln -s $CURDIR/zshrc ~/.zshrc
+        cat > ~/.zshrc << EOF
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="maarten"
+plugins=(git $ZSH_PLUGINS)
+source $ZSH/oh-my-zsh.sh
+export LANG=en_US.UTF-8
+# Put custom aliases and stuff in \$ZSH_CUSTOM!
+EOF
         echo "Deployed .zshrc"
     fi
-
 
     if [ $SHELL != $ZSH_PATH ]; then
         echo "Configuring zsh as current shell"
