@@ -4,9 +4,12 @@ set -euf
 
 CURDIR=$( cd "$(dirname "$0")" ; pwd -P )
 
-if [ ! -e ~/.gitconfig ]; then
-    ln -s $CURDIR/gitconfig ~/.gitconfig
-    echo "Deployed .gitconfig"
+if ! grep -q "path = dotfiles/gitconfig" ~/.gitconfig; then
+    cat >> ~/.gitconfig <<EOT
+[include]
+    path = dotfiles/gitconfig
+EOT
+    echo "Infected .gitconfig"
 fi
 
 if [ ! -e ~/.vimrc ]; then
