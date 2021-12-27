@@ -9,9 +9,9 @@ set encoding=utf-8
 
 " Whitespace stuff
 set nowrap
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set expandtab
 set list listchars=tab:\ \ ,trail:·
 
@@ -55,6 +55,7 @@ au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set f
 au BufNewFile,BufRead *.json set ft=javascript
 
 au BufRead,BufNewFile *.txt call s:setupWrapping()
+au BufRead,BufNewFile *.md call s:setupWrapping()
 
 " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
 au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
@@ -64,8 +65,11 @@ au FileType java set makeprg=javac\ %
 au FileType java command! Runprg :!java %:r
 
 " C++ compiler setup
-au FileType cpp set makeprg=c++\ -g\ -o\ %:r\ %
-au FileType cpp command! Runprg :!%:r
+au FileType cpp set makeprg=c++\ -std=c++17\ -g\ -o\ %:r\ %
+au FileType cpp command! Runprg :!%:p:r
+au FileType cpp setlocal foldmethod=syntax
+au FileType cpp setlocal foldnestmax=1
+au FileType cpp normal zR
 
 " XML folding
 let g:xml_syntax_folding=1
