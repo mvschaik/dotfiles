@@ -55,6 +55,10 @@ if [ $ZSH_PATH ]; then
         ln -s $CURDIR/maarten.zsh-theme ~/.oh-my-zsh/custom/themes/maarten.zsh-theme
     fi
 
+    if [ ! -e ~/.oh-my-zsh/custom/fix_slow_paste.zsh ]; then
+        ln -s $CURDIR/fix_slow_paste.zsh ~/.oh-my-zsh/custom/fix_slow_paste.zsh
+    fi
+
     if [ ! -e ~/.zshrc ]; then
         cat > ~/.zshrc << EOF
 export ZSH="$HOME/.oh-my-zsh"
